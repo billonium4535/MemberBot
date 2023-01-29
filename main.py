@@ -1,6 +1,8 @@
 import discord
 import random
 
+USER_ID = YOUR_USER_ID
+
 client = discord.Client()
 
 
@@ -28,7 +30,7 @@ async def on_message(message):
             await message.channel.send(quote)
 
     """elif message.content.lower().startswith("fuck_daniel"):
-        if message.author.id == 296371822381891586:
+        if message.author.id == USER_ID:
             for i in range(10):
                 await message.channel.send("<@364476443578728459>")"""
 
