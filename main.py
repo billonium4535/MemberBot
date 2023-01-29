@@ -16,20 +16,20 @@ async def on_message(message):
         await message.channel.send('Member typing mb! member')
 
     elif 'member' in (message.content.lower()):
-        if message.author.id != 920400004504498188:
+        if message.author.id != USER_ID:
             quotes = open("quotes.txt").read().splitlines()
             quote = random.choice(quotes)
             await message.channel.send(quote)
 
     elif 'remember' in (message.content.lower()):
-        if message.author.id != 920400004504498188:
+        if message.author.id != USER_ID:
             quotes = open("quotes.txt").read().splitlines()
             quote = random.choice(quotes)
             await message.channel.send(quote)
 
-    elif message.content.lower().startswith("fuck_daniel"):
+    """elif message.content.lower().startswith("fuck_daniel"):
         if message.author.id == 296371822381891586:
             for i in range(10):
-                await message.channel.send("<@364476443578728459>")
+                await message.channel.send("<@364476443578728459>")"""
 
-client.run("OTIwNDAwMDA0NTA0NDk4MTg4.YbjzTQ.XFs_4owMHqcWBrymRIog1bJYW08")
+client.run("YOUR-TOKEN-HERE")
