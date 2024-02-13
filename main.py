@@ -2,7 +2,7 @@ import discord
 import random
 import os
 
-USER_ID = YOUR_USER_ID
+USER_ID = 710613961875259527
 active = True
 
 intents = discord.Intents.default()
@@ -19,6 +19,8 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+    local_current_directory = os.path.dirname(__file__)
+    local_file_path = os.path.join(local_current_directory, "quotes.txt")
     global active
     if message.author.bot:
         return
@@ -32,13 +34,13 @@ async def on_message(message):
 
     elif 'member' in (message.content.lower()) and active:
         if message.author.id != USER_ID:
-            quotes = open("quotes.txt").read().splitlines()
+            quotes = open(local_file_path).read().splitlines()
             quote = random.choice(quotes)
             await message.channel.send(quote)
 
     elif 'remember' in (message.content.lower()) and active:
         if message.author.id != USER_ID:
-            quotes = open("quotes.txt").read().splitlines()
+            quotes = open(local_file_path).read().splitlines()
             quote = random.choice(quotes)
             await message.channel.send(quote)
 
