@@ -2,6 +2,7 @@ import discord
 import random
 
 USER_ID = YOUR_USER_ID
+active = True
 
 client = discord.Client()
 
@@ -14,24 +15,25 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+    global active
     if (message.content.lower()).startswith('mb! help'):
         await message.channel.send('Member typing mb! member')
 
-    elif 'member' in (message.content.lower()):
+    elif message.content.lower() == "!memberStart":
+        active = True
+    elif message.content.lower() == "!memberStop":
+        active = False
+
+    elif 'member' in (message.content.lower()) and active:
         if message.author.id != USER_ID:
             quotes = open("quotes.txt").read().splitlines()
             quote = random.choice(quotes)
             await message.channel.send(quote)
 
-    elif 'remember' in (message.content.lower()):
+    elif 'remember' in (message.content.lower()) and active:
         if message.author.id != USER_ID:
             quotes = open("quotes.txt").read().splitlines()
             quote = random.choice(quotes)
             await message.channel.send(quote)
-
-    """elif message.content.lower().startswith("fuck_daniel"):
-        if message.author.id == USER_ID:
-            for i in range(10):
-                await message.channel.send("<@364476443578728459>")"""
 
 client.run("YOUR-TOKEN-HERE")
