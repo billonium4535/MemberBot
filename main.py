@@ -1,10 +1,14 @@
 import discord
 import random
+import os
 
 USER_ID = YOUR_USER_ID
 active = True
 
-client = discord.Client()
+intents = discord.Intents.default()
+intents.message_content = True
+
+client = discord.Client(intents=intents)
 
 
 @client.event
@@ -16,13 +20,15 @@ async def on_ready():
 @client.event
 async def on_message(message):
     global active
-    if (message.content.lower()).startswith('mb! help'):
-        await message.channel.send('Member typing mb! member')
+    if message.author.bot:
+        return
 
-    elif message.content.lower() == "!memberStart":
+    if message.content.lower() == "!memberstart" and not active:
         active = True
-    elif message.content.lower() == "!memberStop":
+        await message.channel.send("Started membering")
+    elif message.content.lower() == "!memberstop" and active:
         active = False
+        await message.channel.send("Stopped membering")
 
     elif 'member' in (message.content.lower()) and active:
         if message.author.id != USER_ID:
@@ -36,4 +42,8 @@ async def on_message(message):
             quote = random.choice(quotes)
             await message.channel.send(quote)
 
-client.run("YOUR-TOKEN-HERE")
+
+current_directory = os.path.dirname(__file__)
+file_path = os.path.join(current_directory, "token.txt")
+token = open(file_path)
+client.run(token.read())
